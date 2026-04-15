@@ -1,4 +1,6 @@
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -9,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 100;
     [SerializeField]AudioSource FonteSuonoPassi;
     [SerializeField]AudioClip suoniPassi;
+    [SerializeField]InputActionAsset action;
 
     private int currentHealth;
     private Rigidbody2D rb;
@@ -29,6 +32,12 @@ public class PlayerController : MonoBehaviour
             healthSlider.maxValue = maxHealth;
             healthSlider.value = currentHealth;
         }
+        action.actionMaps[0].actions.First(x => x.name == "Attack").performed += PlayerController_performed;
+    }
+
+    private void PlayerController_performed(InputAction.CallbackContext obj)
+    {
+        Debug.Log("attacco");
     }
 
     void Update()
