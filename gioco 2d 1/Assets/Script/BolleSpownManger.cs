@@ -17,9 +17,11 @@ public class BolleSpownManger : MonoBehaviour
     {
         if (nextTime < 0)
         {
+            nextTime = Random.Range(minTime, maxTime);
             int i = Random.Range(0, list.Length);
-            var g = Instantiate(BollePrefab);
-            //var t
+            var a = list[i];
+            var g = Instantiate(BollePrefab, a);
         }
+        nextTime -= Time.deltaTime;
     }
 }

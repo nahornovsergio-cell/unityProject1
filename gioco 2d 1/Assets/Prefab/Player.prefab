@@ -1165,6 +1165,37 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &8372018057198668628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2046183131293953100}
+  m_Layer: 0
+  m_Name: Meta
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2046183131293953100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8372018057198668628}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5203934417123845274}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8397963339993588126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,6 +1257,7 @@ GameObject:
   - component: {fileID: 4140579188015291317}
   - component: {fileID: 5451394544479331036}
   - component: {fileID: 2327601619022636798}
+  - component: {fileID: 4110307663941475571}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1255,6 +1287,7 @@ Transform:
   - {fileID: 8191538321638676316}
   - {fileID: 3287619594624473683}
   - {fileID: 70437408816314920}
+  - {fileID: 2046183131293953100}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8338069643521734115
@@ -1384,3 +1417,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::setBg
   colorsDataBase: {fileID: 11400000, guid: 3f609dbd93660c746bba999d62c95ca4, type: 2}
+--- !u!114 &4110307663941475571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8438376998630077054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90769d8eb59d2cb41932e5b65b1fcb5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRaccoglitore
+  Meta: {fileID: 2046183131293953100}

@@ -8,11 +8,25 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> activeEnemies = new List<GameObject>();
     public bool openGate = false;
+    public List<GameObject> deactivableObjects = new List<GameObject>();
+    public Serratura serratura;
 
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+        if (serratura != null)
+        {
+            serratura.raccoltoTutto += Serratura_raccoltoTutto;
+        }
+    }
+
+    private void Serratura_raccoltoTutto()
+    {
+        foreach (GameObject obj in deactivableObjects) 
+        {
+            GameObject.Destroy(obj);
+        }
     }
 
     void Start()
