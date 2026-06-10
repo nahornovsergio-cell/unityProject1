@@ -1,2 +1,6 @@
-IT. Questo Repository è il mio progetto unity. Sto creando un video Gioco RPG. Il mio proggetto verra aggiornato di tanto in tanto.
-EN. This repository is my Unity project. I'm creating a video RPG game. My project will be updated periodically.
+**IT**. Questo è il mio progetto Unity:
+- è un video gioco **RPG**;
+- è un video gioco in **2d**, **pixel art**;
+- lo faccio per la mia crescita personale con **Unity**;
+- in questo modo imparo anche **c#**;
+- questo progetto sarà in **continuo sviluppo** con aggiornamenti freguenti;  
