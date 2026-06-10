@@ -25,7 +25,7 @@ public class PlayerRaccoglitore : MonoBehaviour
         }
         if (controllo && collision.TryGetComponent(out Serratura serratura))
         {
-            serratura.accettatore();
+            serratura.Accettatore();
             Destroy(this.chiave);
             this.chiave = null;
         }

@@ -17,12 +17,12 @@ public class GameManager : MonoBehaviour
         Instance = this;
         if (serratura != null)
         {
-            serratura.raccoltoTutto += Serratura_raccoltoTutto;
+            serratura.RaccoltoTutto += Serratura_raccoltoTutto;
         }
     }
 
     private void Serratura_raccoltoTutto()
-    {
+    {   
         foreach (GameObject obj in deactivableObjects) 
         {
             GameObject.Destroy(obj);

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MeleeEnemyController : MonoBehaviour
+public class MeleeEnemyController : MonoBehaviour, IenemyAttacco
 {
     [Header("Stats")]
     public Enemyconfig config;
@@ -16,6 +16,8 @@ public class MeleeEnemyController : MonoBehaviour
 
     private Transform player;
     private Rigidbody2D rb;
+
+    public event Action Attacco;
 
     void Start()
     {
@@ -62,10 +64,14 @@ public class MeleeEnemyController : MonoBehaviour
     // ГЛАВНАЯ ЧАСТЬ: Урон при столкновении
     private void OnCollisionStay2D(Collision2D collision)
     {
+        //Debug.Log(/*"il nemico ti ha toccato");*/
         if (collision.gameObject.CompareTag("Player"))
         {
+            //Debug.Log(Time.time - lastDamageTime);
+            //Debug.Log(damageCooldown);
             if (Time.time - lastDamageTime >= damageCooldown)
             {
+                Attacco?.Invoke();
                 // Пытаемся нанести урон
                 collision.gameObject.GetComponent<PlayerController>()?.TakeDamage(contactDamage);
                 lastDamageTime = Time.time;

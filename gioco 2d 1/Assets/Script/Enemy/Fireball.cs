@@ -11,6 +11,7 @@ public class Fireball : MonoBehaviour
     public void Init(Vector2 targetPosition)
     {
         direction = (targetPosition - (Vector2)transform.position).normalized;
+        transform.right = direction;
         Destroy(gameObject, lifeTime);
     }
 

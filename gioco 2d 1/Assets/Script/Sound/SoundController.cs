@@ -16,6 +16,7 @@ public class SoundController : MonoBehaviour
     }
     void PlayAttacco()
     {
+        FonteSuonoAttacco.pitch = Random.Range(0.8f, 1f);
         FonteSuonoAttacco.PlayOneShot(suoniAttacco);
     }
 }

@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float attackRange = 0.5f;
     public int attackDamage =20;
     public LayerMask enemyLayers;
+    [SerializeField] GameObject pannelloMorte;
 
     void Start()
     {
@@ -80,20 +83,29 @@ public class PlayerController : MonoBehaviour
         {
             healthSlider.value = currentHealth;
         }
-
+        Debug.Log(currentHealth);
         if (currentHealth <= 0)
         {
             Die();
         }
+        StartCoroutine(rovinato());
+    }
+    IEnumerator rovinato()
+    {
+        sprite.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        sprite.color = Color.white;
     }
 
     void Die()
     {
         Debug.Log("Player died");
-        Destroy(gameObject);
+        showScreen();
+
+
     }
 
-public AttackZone weaponZone; // Перетащи сюда объект с триггером в инспекторе
+     public AttackZone weaponZone; // Перетащи сюда объект с триггером в инспекторе
 
 
     void OnDrawGizmosSelected()
@@ -104,6 +116,7 @@ public AttackZone weaponZone; // Перетащи сюда объект с тр�
 
     void PlayPassi()
     {
+        FonteSuonoPassi.pitch = Random.Range(0.8f, 2f);
         FonteSuonoPassi.clip = suoniPassi;
         FonteSuonoPassi.Play();
         animator.SetBool("corre", true);
@@ -114,6 +127,14 @@ public AttackZone weaponZone; // Перетащи сюда объект с тр�
     {
         FonteSuonoPassi.Stop();
         animator.SetBool("corre", false);
+    }
+    public void showScreen()
+    {
+        pannelloMorte.SetActive(true);
+    }
+    public void highScreen()
+    {
+        SceneManager.LoadScene(1);
     }
 
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
+using System;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IenemyAttacco
 {
     public float moveSpeed = 3f;
     //public int maxHealth = 50;
@@ -13,7 +14,11 @@ public class EnemyController : MonoBehaviour
 
     private Transform player;
     private float lastCastTime;
-    //private int currentHealth;
+
+    public event Action Attacco;
+
+    //private int currentHealth
+
 
     void Start()
     {
@@ -54,6 +59,7 @@ public class EnemyController : MonoBehaviour
 
     void CastFireball()
     {
+        Attacco?.Invoke();
         GameObject fireball = Instantiate(fireballPrefab, firePoint.position, Quaternion.identity);
         fireball.GetComponent<Fireball>().Init(player.position);
     }
