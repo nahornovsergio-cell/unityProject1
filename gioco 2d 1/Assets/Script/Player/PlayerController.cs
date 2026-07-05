@@ -19,12 +19,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     public Slider healthSlider;
+    public bool Alive => currentHealth > 0;
 
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public int attackDamage =20;
     public LayerMask enemyLayers;
     [SerializeField] GameObject pannelloMorte;
+
+    [SerializeField] PlayerAttack playerAttack;
 
     void Start()
     {
@@ -45,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-       
+        
         movement.x = Input.GetAxisRaw("Horizontal");
         sprite.flipX = movement.x < 0? true : movement.x > 0? false : sprite.flipX;
         movement.y = Input.GetAxisRaw("Vertical");
@@ -101,8 +104,8 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player died");
         showScreen();
-
-
+        enabled = false;
+        playerAttack.enabled = false;
     }
 
      public AttackZone weaponZone; // Перетащи сюда объект с триггером в инспекторе
@@ -132,9 +135,6 @@ public class PlayerController : MonoBehaviour
     {
         pannelloMorte.SetActive(true);
     }
-    public void highScreen()
-    {
-        SceneManager.LoadScene(1);
-    }
+
 
 }

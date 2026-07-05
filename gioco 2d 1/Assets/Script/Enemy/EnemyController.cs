@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour, IenemyAttacco
     public GameObject fireballPrefab;
     public Transform firePoint;
 
-    private Transform player;
+    private PlayerController player;
     private float lastCastTime;
 
     public event Action Attacco;
@@ -22,15 +22,16 @@ public class EnemyController : MonoBehaviour, IenemyAttacco
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         //currentHealth = maxHealth;
+        Debug.Log(player);
     }
 
     void Update()
     {
         if (player == null) return;
 
-        float distance = Vector2.Distance(transform.position, player.position);
+        float distance = Vector2.Distance(transform.position, player.transform.position);
 
         if (distance > attackRange)
         {
@@ -44,12 +45,16 @@ public class EnemyController : MonoBehaviour, IenemyAttacco
 
     void MoveToPlayer()
     {
-        Vector2 direction = (player.position - transform.position).normalized;
+        Vector2 direction = (player.transform.position - transform.position).normalized;
         transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
     }
 
     void TryCastFireball()
     {
+        if (!player.Alive)
+        {
+            return;
+        }
         if (Time.time - lastCastTime >= castCooldown)
         {
             lastCastTime = Time.time;
@@ -61,20 +66,6 @@ public class EnemyController : MonoBehaviour, IenemyAttacco
     {
         Attacco?.Invoke();
         GameObject fireball = Instantiate(fireballPrefab, firePoint.position, Quaternion.identity);
-        fireball.GetComponent<Fireball>().Init(player.position);
+        fireball.GetComponent<Fireball>().Init(player.transform.position);
     }
-
-   // public void TakeDamage(int damage)
-   // {
-   //     currentHealth -= damage;
-   //     if (currentHealth <= 0)
-   //     {
-   //         Die();
-   //     }
-   //}
-
-   //// void Die()
-   // /{
-   //     Destroy(gameObject);
-   // }
 }

@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ public class MeleeEnemyController : MonoBehaviour, IenemyAttacco
     public float damageCooldown = 1f;   // Как часто он может кусать игрока
     private float lastDamageTime;
 
-    private Transform player;
+    private PlayerController player;
     private Rigidbody2D rb;
 
     public event Action Attacco;
@@ -23,9 +24,10 @@ public class MeleeEnemyController : MonoBehaviour, IenemyAttacco
     {
         rb = GetComponent<Rigidbody2D>();
         currentHealth = config.maxHealth;
-       
+
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null) player = playerObj.transform;
+        if (playerObj != null) 
+            player = playerObj.transform.GetComponent<PlayerController>();
         if (healthSlider != null)
         {
             healthSlider.maxValue = config.maxHealth;
@@ -39,7 +41,7 @@ public class MeleeEnemyController : MonoBehaviour, IenemyAttacco
         FixUIRotation();
 
         // Движение через Rigidbody2D (так физика работает стабильнее)
-        Vector2 direction = (player.position - transform.position).normalized;
+        Vector2 direction = (player.transform.position - transform.position).normalized;
         rb.MovePosition(rb.position + direction * config.moveSpeed * Time.fixedDeltaTime);
 
         // Поворот спрайта
@@ -67,13 +69,15 @@ public class MeleeEnemyController : MonoBehaviour, IenemyAttacco
         //Debug.Log(/*"il nemico ti ha toccato");*/
         if (collision.gameObject.CompareTag("Player"))
         {
-            //Debug.Log(Time.time - lastDamageTime);
-            //Debug.Log(damageCooldown);
+            if (!player.Alive)
+            {
+                return;
+            }
             if (Time.time - lastDamageTime >= damageCooldown)
             {
                 Attacco?.Invoke();
                 // Пытаемся нанести урон
-                collision.gameObject.GetComponent<PlayerController>()?.TakeDamage(contactDamage);
+                 collision.gameObject.GetComponent<PlayerController>()?.TakeDamage(contactDamage);
                 lastDamageTime = Time.time;
                 Debug.Log("Враг укусил игрока!");
             }
